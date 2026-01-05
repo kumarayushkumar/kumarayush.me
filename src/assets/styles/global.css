@@ -28,7 +28,7 @@
 }
 
 @theme {
-  --font-sans: 'Shone',sans-serif;
+  --font-sans: 'Shone', sans-serif;
   --font-mono: 'Source Code Pro', monospace;
 
   --color-white: #f0ede6;
@@ -80,4 +80,8 @@
 
 .markdown-content strong {
   @apply font-semibold;
+}
+
+.markdown-content pre {
+  @apply font-mono p-2 text-sm font-normal;
 }
