@@ -41,7 +41,9 @@ flowchart LR
 
 The browser receives an HTML file from the network/server, then the raw file/Bytes -> Characters, Token -> Node -> DOM.
 
-script, link and style tags will halt the parser as script can alter the document, so the browser waits for it. That's why we should put the script tag at the bottom so the main content appears first.
+script, link and style tags will halt the parser as script can alter the document, so the browser waits for it. 
+
+That's why we should put the script tag at the bottom so the main content appears first.
 
 We write HTML, but under the hood, it's C and C++.
 
