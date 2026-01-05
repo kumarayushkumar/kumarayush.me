@@ -92,7 +92,7 @@ It's a recursive process.
 
 Doing a font size change will relayout the entire document, and with browser resize.
 
-**Open a side by your browser and activity monitor, then change the window size of the browser application and notice a sudden increase in CPU usage.**
+**Open a side by side view of your browser and activity monitor, then change the window size of the browser application and notice a sudden increase in CPU usage.**
 
 This is where layout thrashing happens.
 
