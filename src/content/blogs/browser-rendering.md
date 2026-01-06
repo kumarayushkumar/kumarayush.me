@@ -90,9 +90,12 @@ Actuall multiple trees are created here:
 
 The browser computes geometry(Width, Height, Position) based on the viewport size, the box model, Flexbox/Grid rules, and the font metrics.
 
+
 It's a recursive process.
 
 Doing a font size change will relayout the entire document, and with browser resize.
+
+**EXPENSIVE PROCESS.**
 
 **Open a side by side view of your browser and activity monitor, then change the window size of the browser application and notice a sudden increase in CPU usage.**
 
@@ -126,6 +129,10 @@ Painted layers are uploaded to the GPU.
 
 Layers are composited together into the final image.
 
+<br class="text-sm">
+
+Now you see the final output on the screen.
+
 <br>
 
 **That's All**
@@ -134,6 +141,5 @@ If you have any doubt, you can ask me on Twitter.
 
 <br>
 
-**Must Watch**: <a href="https://www.youtube.com/watch?v=SmE4OwHztCc" target="_blank" rel="noopener noreferrer">Ryan Seddon: So how does the browser actually render a website | JSConf EU 2015</a>
+**Must Watch**: <a href="https://www.youtube.com/watch?v=SmE4OwHztCc" target="_blank" rel="noopener noreferrer" class="underline">Ryan Seddon: So how does the browser actually render a website | JSConf EU 2015</a>
 
-<br>
