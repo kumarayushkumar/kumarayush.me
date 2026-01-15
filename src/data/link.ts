@@ -3,9 +3,10 @@ export const contact = {
   social: {
     twitter: 'https://x.com/ayushkumarkeirn',
     linkedin: 'https://www.linkedin.com/in/ayushkumarkumar/',
-    github: 'https://github.com/kumarayushkumar'
+    github: 'https://github.com/kumarayushkumar',
+    medium: 'https://medium.com/@kumarayushkumar'
   },
-  blog: 'https://growigh.com/blogs/'
+  blog: 'https://medium.com/@kumarayushkumar'
 }
 
 export const figma =
