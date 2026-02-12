@@ -6,7 +6,9 @@ export const contact = {
     github: 'https://github.com/kumarayushkumar',
     medium: 'https://medium.com/@kumarayushkumar'
   },
-  blog: 'https://medium.com/@kumarayushkumar'
+  blog: 'https://medium.com/@kumarayushkumar',
+  resume:
+    'https://drive.google.com/drive/folders/1qP4Kq4hG_8rAzZmuCeXt7u95WsABqnMv?usp=share_link'
 }
 
 export const figma =

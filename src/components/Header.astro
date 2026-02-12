@@ -1,6 +1,10 @@
 ---
+import { contact } from '../data/link'
+
 const navItems = {
   Contact: '#footer',
+  Resume: contact.resume,
+  Blog: contact.blog
 }
 ---
 
@@ -18,6 +22,8 @@ const navItems = {
       Object.entries(navItems).map(([name, link]) => (
         <a
           href={link}
+          rel="noopener noreferrer"
+          target="_blank"
           class="text-sm md:text-xl font-medium text-zinc-300 hover:text-zinc-50 duration-[400ms]">
           {name}
         </a>
