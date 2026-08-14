@@ -1,10 +1,10 @@
 ---
-import { contact } from '../data/link'
+import { blog, resume } from '../data/link'
 
 const navItems = {
   Contact: '#footer',
-  Resume: contact.resume,
-  Blog: contact.blog
+  Resume: resume,
+  Blog: blog
 }
 ---
 
@@ -22,8 +22,8 @@ const navItems = {
       Object.entries(navItems).map(([name, link]) => (
         <a
           href={link}
+          target={link.startsWith('http') ? '_blank' : undefined}
           rel="noopener noreferrer"
-          target="_blank"
           class="text-sm md:text-xl font-medium text-zinc-300 hover:text-zinc-50 duration-[400ms]">
           {name}
         </a>

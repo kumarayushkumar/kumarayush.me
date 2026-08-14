@@ -1,49 +1,98 @@
 ---
 import { Picture } from 'astro:assets'
+import { highlightedProjects } from '../../data/project'
 import { contact } from '../../data/link'
-import { project } from '../../data/project'
+import { blog } from '../../data/link'
+
+const stackOrder = [
+  'frontend',
+  'backend',
+  'database',
+  'ai',
+  'mobile',
+  'infra',
+  'tools'
+] as const
+
+const stackLabels = {
+  frontend: 'Frontend',
+  backend: 'Backend',
+  database: 'Database',
+  ai: 'AI',
+  mobile: 'Mobile',
+  infra: 'Infra',
+  tools: 'Tools'
+}
 ---
 
-<section id="product" class="wrapper flex-col mt-60 2xl:mt-80">
-  <h2 class="text-xl md:text-3xl text-zinc-200">Projects</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mt-8">
+<section id="product" class="wrapper flex-col mt-48 2xl:mt-80">
+  <h2 class="text-zinc-200">Build so far</h2>
+
+  <div class="mt-4 md:mt-10 flex flex-col">
     {
-      project.map(item => (
-        <a
-          href={`${item.liveLink}`}
-          target="_blank"
-          rel="noopener"
-          class={`flex flex-col ${item.liveLink ? 'custom-cursor' : 'cursor-default'}`}>
-          <Picture
-            src={item.image}
-            alt="Project visual"
-            class="w-auto object-contain grayscale hover:grayscale-0 transition-all duration-[400ms] ease-in-out"
-            loading="lazy"
-            fallbackFormat="png"
-            formats={['avif', 'webp']}
-            draggable="false"
-          />
-          <div class="mt-3 text-zinc-300 font-mono pl-1 flex flex-col gap-1">
-            <p class="text-base md:text-lg font-medium">{item.name}</p>
-            <p class="leading-[105%] font-normal text-sm">{item.description}</p>
-          </div>
-        </a>
-      ))
+      highlightedProjects.map((item, index) => {
+        const live =
+          typeof item.liveLink === 'string'
+            ? item.liveLink
+            : (item.liveLink?.web ?? item.liveLink?.app)
+        return (
+          <article class="group border-t border-zinc-800 py-8 last:border-b">
+            <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-6">
+              <button
+                type="button"
+                class="project-open flex cursor-pointer flex-col gap-1 text-left"
+                data-index={index}>
+                <h3 class="text-xl md:text-2xl text-zinc-300 group-hover:text-white transition-colors duration-300">
+                  {item.name}
+                </h3>
+                {item.tagline && (
+                  <p class="text-base md:text-lg font-medium text-zinc-500">
+                    {item.tagline}
+                  </p>
+                )}
+              </button>
+              <div class="flex shrink-0 gap-5 font-mono text-sm md:pt-2.5">
+                {live && (
+                  <a
+                    href={live}
+                    target="_blank"
+                    rel="noopener"
+                    class="font-normal text-zinc-300 hover:text-white transition-colors duration-300">
+                    Live ↗
+                  </a>
+                )}
+                <button
+                  type="button"
+                  class="project-open cursor-pointer font-normal text-white hover:opacity-70 transition-opacity"
+                  data-index={index}>
+                  Read more →
+                </button>
+              </div>
+            </div>
+          </article>
+        )
+      })
     }
   </div>
-  <div class="flex w-full justify-end items-end mt-10">
-    <a
-      href={contact.social.github}
-      target="_blank"
-      class="text-sm md:text-lg border-b-[0.00625rem] text-zinc-400"
-      >More on Github</a
-    >
-  </div>
+
+  <a
+    href="/archive"
+    class="mt-6 md:mt-14 border-b border-zinc-500 self-end font-mono text-base font-normal text-zinc-400 hover:border-white hover:text-white transition-colors duration-400">
+    More projects
+  </a>
+
   <p class="mt-60 2xl:mt-80">
-    I have Loved Learning and Building things since Childhood, whether it was
-    Experimenting with Code, IoT projects or Creating small Projects just for
-    fun. That Curiosity turned into a Passion, and over the years, Now I'm
-    Building more Stuff.
+    I have loved learning and building things since childhood, whether it was
+    experimenting with code, IoT projects or creating small projects just for
+    fun, that curiosity turned into a passion, and over the years. Now I'm
+    building more Stuff.
+  </p>
+
+  <p class="mt-60 2xl:mt-80">
+    I believe that knowing how to sell and tell your story is as important as
+    Building a great product. That's why I spend my time learning business
+    strategy, understanding human psychology, and reading books on Design,
+    Storytelling, and Startups.
   </p>
   <p class="mt-10">
     I post on <a
@@ -52,10 +101,222 @@ import { project } from '../../data/project'
       class="text-white"
       rel="noopener">Twitter</a
     > and write a blog on <a
-      href={contact.blog}
+      href={blog}
       target="_blank"
       class="text-white"
       rel="noopener">Medium</a
     >.
   </p>
 </section>
+
+<div
+  id="project-overlay"
+  class="fixed inset-0 z-40 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-300">
+</div>
+
+{
+  highlightedProjects.map((item, index) => {
+    const web =
+      typeof item.liveLink === 'string' ? item.liveLink : item.liveLink?.web
+    const app =
+      typeof item.liveLink === 'object' ? item.liveLink?.app : undefined
+    return (
+      <aside
+        id={`project-modal-${index}`}
+        class="project-modal fixed top-0 right-0 z-50 h-dvh w-full md:w-3/5 translate-x-full overflow-y-auto border-l border-zinc-800 bg-[#0d0d0d] transition-transform duration-300 ease-out">
+        <div class="px-6 py-10 md:px-12 md:pb-24">
+          <button
+            type="button"
+            class="project-close sticky top-0 float-right -mt-2 -mr-2 cursor-pointer text-3xl leading-none text-zinc-500 hover:text-white transition-colors">
+            &times;
+          </button>
+
+          <p class="font-mono text-sm font-normal text-zinc-500">
+            {item.role} · {item.createdAt.slice(0, 4)}
+          </p>
+          <h3 class="mt-4 text-3xl text-white">{item.name}</h3>
+          {item.highlight && (
+            <span class="mt-4 inline-block rounded-full border border-zinc-700 px-3 py-1 font-mono text-sm font-medium text-amber-200">
+              {item.highlight}
+            </span>
+          )}
+
+          <div class="mt-8">
+            <p class="font-mono text-xs font-normal uppercase tracking-widest text-zinc-500">
+              Overview
+            </p>
+            <p class="mt-3 text-base md:text-lg font-normal text-zinc-400">
+              {item.description}
+            </p>
+          </div>
+
+          {item.approach && (
+            <div class="mt-7">
+              <p class="font-mono text-xs font-normal uppercase tracking-widest text-zinc-500">
+                How it works
+              </p>
+              <p class="mt-3 text-base md:text-lg font-normal text-zinc-400 leading-relaxed">
+                {item.approach}
+              </p>
+            </div>
+          )}
+
+          {item.architecture && (
+            <div class="mt-7">
+              <p class="font-mono text-xs font-normal uppercase tracking-widest text-zinc-500">
+                Architecture
+              </p>
+              <p class="mt-3 text-base md:text-lg font-normal text-zinc-400 leading-relaxed">
+                {item.architecture}
+              </p>
+              {item.architectureImage && (
+                <button
+                  type="button"
+                  class="image-zoom mt-4 block w-full cursor-zoom-in overflow-hidden rounded-lg border border-zinc-800">
+                  <Picture
+                    src={item.architectureImage}
+                    alt={`${item.name} architecture diagram`}
+                    class="w-full"
+                    formats={['avif', 'webp']}
+                    fallbackFormat="png"
+                  />
+                </button>
+              )}
+            </div>
+          )}
+
+          <div class="mt-7">
+            <p class="font-mono text-xs font-normal uppercase tracking-widest text-zinc-500">
+              Tech stack
+            </p>
+            <div class="mt-4 flex flex-col gap-3">
+              {stackOrder
+                .filter(k => item.techStack[k]?.length)
+                .map(k => (
+                  <div class="flex items-start gap-3">
+                    <span class="w-20 shrink-0 py-1 font-mono text-sm font-normal text-zinc-500">
+                      {stackLabels[k]}
+                    </span>
+                    <div class="flex flex-wrap gap-2">
+                      {(item.techStack[k] ?? []).map(t => (
+                        <span class="rounded border border-zinc-800 px-2 py-1 font-mono text-xs font-normal text-zinc-400">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-6 font-mono text-sm md:text-base font-normal">
+            {web && (
+              <a
+                href={web}
+                target="_blank"
+                rel="noopener"
+                class="border-b border-zinc-500 text-zinc-300 hover:text-white transition-colors duration-300">
+                Live ↗
+              </a>
+            )}
+            {app && (
+              <a
+                href={app}
+                target="_blank"
+                rel="noopener"
+                class="border-b border-zinc-500 text-zinc-300 hover:text-white transition-colors duration-300">
+                App ↗
+              </a>
+            )}
+            {item.github && (
+              <a
+                href={item.github}
+                target="_blank"
+                rel="noopener"
+                class="border-b border-zinc-500 text-zinc-300 hover:text-white transition-colors duration-300">
+                GitHub ↗
+              </a>
+            )}
+            {item.demo && (
+              <a
+                href={item.demo}
+                target="_blank"
+                rel="noopener"
+                class="border-b border-zinc-500 text-zinc-300 hover:text-white transition-colors duration-300">
+                Demo ↗
+              </a>
+            )}
+          </div>
+        </div>
+      </aside>
+    )
+  })
+}
+
+<div
+  id="image-preview"
+  class="fixed inset-0 z-[70] hidden cursor-zoom-out items-center justify-center bg-black/90 p-4 md:p-10">
+  <img
+    id="image-preview-img"
+    alt="Preview"
+    class="max-h-full max-w-full object-contain"
+  />
+</div>
+
+<script>
+  const overlay = document.getElementById('project-overlay')
+  const modals = document.querySelectorAll<HTMLElement>('.project-modal')
+  const openButtons = document.querySelectorAll<HTMLElement>('.project-open')
+  const closeButtons = document.querySelectorAll<HTMLElement>('.project-close')
+  const zoomButtons = document.querySelectorAll<HTMLElement>('.image-zoom')
+  const preview = document.getElementById('image-preview')
+  const previewImg = document.getElementById(
+    'image-preview-img'
+  ) as HTMLImageElement | null
+
+  const open = (index: string | undefined) => {
+    const modal = document.getElementById(`project-modal-${index}`)
+    if (!modal || !overlay) return
+    modal.classList.remove('translate-x-full')
+    overlay.classList.remove('opacity-0', 'pointer-events-none')
+    document.body.style.overflow = 'hidden'
+  }
+
+  const close = () => {
+    modals.forEach(m => m.classList.add('translate-x-full'))
+    overlay?.classList.add('opacity-0', 'pointer-events-none')
+    document.body.style.overflow = ''
+  }
+
+  const openPreview = (src: string | undefined) => {
+    if (!preview || !previewImg || !src) return
+    previewImg.src = src
+    preview.classList.remove('hidden')
+    preview.classList.add('flex')
+  }
+
+  const closePreview = () => {
+    preview?.classList.add('hidden')
+    preview?.classList.remove('flex')
+  }
+
+  openButtons.forEach(btn =>
+    btn.addEventListener('click', () => open(btn.dataset.index))
+  )
+  closeButtons.forEach(btn => btn.addEventListener('click', close))
+  overlay?.addEventListener('click', close)
+
+  zoomButtons.forEach(btn =>
+    btn.addEventListener('click', () => {
+      const img = btn.querySelector('img')
+      openPreview(img?.currentSrc || img?.src)
+    })
+  )
+  preview?.addEventListener('click', closePreview)
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return
+    if (preview && !preview.classList.contains('hidden')) closePreview()
+    else close()
+  })
+</script>

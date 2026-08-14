@@ -1,0 +1,86 @@
+---
+import { archivedProjects } from '../data/project'
+import Layout from '../layout/Layout.astro'
+
+const projects = [...archivedProjects].sort((a, b) =>
+  b.createdAt.localeCompare(a.createdAt)
+)
+---
+
+<Layout
+  title="Archive"
+  description="Older and smaller projects by Ayush Kumar — experiments, freelance work, and things built to learn.">
+  <section class="wrapper mt-4 md:mt-16 gap-6 md:gap-10 flex flex-col">
+    {
+      projects.map(item => (
+        <article class="flex flex-col gap-4 border-t border-zinc-800 py-10">
+          <div class="flex items-baseline justify-between gap-4">
+            <h2 class="text-xl md:text-3xl text-zinc-200">{item.name}</h2>
+            <span class="font-mono text-sm text-zinc-400 shrink-0">
+              {item.createdAt}
+            </span>
+          </div>
+
+          <p class="max-w-3xl text-sm md:text-lg font-normal text-zinc-400 leading-relaxed">
+            {item.description}
+          </p>
+
+          {item.usedBy && (
+            <p class="font-mono text-sm md:text-base text-zinc-400">
+              Users: {item.usedBy}
+            </p>
+          )}
+
+          {item.techStack.length > 0 && (
+            <div class="mt-1 flex flex-wrap gap-2">
+              {item.techStack.map(tech => (
+                <span class="font-mono font-normal text-sm text-zinc-400 border border-zinc-700 rounded px-2 py-1">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div class="mt-1 flex flex-wrap gap-5 font-mono text-sm">
+            {item.liveLink && (
+              <a
+                href={item.liveLink}
+                target="_blank"
+                rel="noopener"
+                class="text-zinc-300 font-normal md:font-medium hover:text-white duration-400 transition-colors">
+                Live ↗
+              </a>
+            )}
+            {item.github && (
+              <a
+                href={item.github}
+                target="_blank"
+                rel="noopener"
+                class="text-zinc-300 font-normal md:font-medium hover:text-white duration-400 transition-colors">
+                GitHub ↗
+              </a>
+            )}
+            {item.design && (
+              <a
+                href={item.design}
+                target="_blank"
+                rel="noopener"
+                class="text-zinc-300 font-normal md:font-medium hover:text-white duration-400 transition-colors">
+                Design ↗
+              </a>
+            )}
+            {item.demo && (
+              <a
+                href={item.demo}
+                target="_blank"
+                rel="noopener"
+                class="text-zinc-300 font-normal md:font-medium hover:text-white duration-400 transition-colors">
+                Demo ↗
+              </a>
+            )}
+          </div>
+        </article>
+      ))
+    }
+  </section>
+</Layout>

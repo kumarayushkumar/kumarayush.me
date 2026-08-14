@@ -34,7 +34,6 @@
   --color-white: #f0ede6;
   --color-black: #131313;
   --color-blue: #1e40af;
-  --color-growigh: #fead0b;
 }
 
 .wrapper {
@@ -46,42 +45,4 @@
     url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 19L19 5M19 5H9M19 5V15' stroke='%23cccccc' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='square'/%3E%3C/svg%3E")
       12 12,
     pointer;
-}
-
-/* Markdown Typography */
-.markdown-content h2 {
-  @apply text-xl md:text-2xl mb-3 mt-10 first:mt-0;
-}
-
-.markdown-content h3 {
-  @apply text-lg md:text-xl mb-2 mt-6 first:mt-0;
-}
-
-.markdown-content p {
-  @apply text-base font-normal mb-2 tracking-[2%];
-}
-
-.markdown-content ul,
-.markdown-content ol {
-  @apply mb-2 pl-6;
-}
-
-.markdown-content li {
-  @apply text-base mb-1 font-normal;
-}
-
-.markdown-content ul li {
-  @apply list-disc;
-}
-
-.markdown-content ol li {
-  @apply list-decimal;
-}
-
-.markdown-content strong {
-  @apply font-semibold;
-}
-
-.markdown-content pre {
-  @apply font-mono p-2 text-sm font-normal;
 }
