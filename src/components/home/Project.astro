@@ -111,7 +111,7 @@ const stackLabels = {
 
 <div
   id="project-overlay"
-  class="fixed inset-0 z-40 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-300">
+  class="fixed inset-0 z-40 bg-black/70 opacity-0 pointer-events-none">
 </div>
 
 {
@@ -123,7 +123,7 @@ const stackLabels = {
     return (
       <aside
         id={`project-modal-${index}`}
-        class="project-modal fixed top-0 right-0 z-50 h-dvh w-full md:w-3/5 translate-x-full overflow-y-auto border-l border-zinc-800 bg-[#0d0d0d] transition-transform duration-300 ease-out">
+        class="project-modal fixed top-0 right-0 z-50 h-dvh w-full md:w-3/5 translate-x-full overflow-y-auto border-l border-zinc-800 bg-[#0d0d0d]">
         <div class="px-6 py-10 md:px-12 md:pb-24">
           <button
             type="button"
@@ -273,6 +273,15 @@ const stackLabels = {
   const previewImg = document.getElementById(
     'image-preview-img'
   ) as HTMLImageElement | null
+
+  // Enable slide/fade transitions only after first paint, so a refresh with
+  // late-applied CSS does not animate the drawer closed on load.
+  requestAnimationFrame(() => {
+    overlay?.classList.add('transition-opacity', 'duration-300')
+    modals.forEach(m =>
+      m.classList.add('transition-transform', 'duration-300', 'ease-out')
+    )
+  })
 
   const open = (index: string | undefined) => {
     const modal = document.getElementById(`project-modal-${index}`)
