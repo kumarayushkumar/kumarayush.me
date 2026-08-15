@@ -121,7 +121,13 @@ export const highlightedProjects: HighlightedProject[] = [
     liveLink: 'https://uianalyzer.in',
     github: 'https://github.com/yaman-694/ui-analyser',
     techStack: {
-      frontend: [skills.next, skills.tw, skills.ts],
+      frontend: [
+        skills.next,
+        skills.react,
+        skills.ts,
+        skills.tw,
+        skills.shadcn
+      ],
       backend: [
         skills.node,
         skills.express,
@@ -297,7 +303,14 @@ export const archivedProjects: Project[] = [
       'A company assignment. A financial dashboard for crypto that streams real-time tick data from the Binance API over WebSocket. Its centre is an interactive calendar (daily, weekly, monthly) with color-coded performance, volatility and liquidity metrics, alongside a live data panel and order book. You can compare periods, run custom date-range analysis, detect historical patterns, set price and volume alerts, and export data as CSV or PDF. Hosted on Vercel.',
     liveLink: 'https://market-seasonality-explorer-nine.vercel.app',
     github: 'https://github.com/kumarayushkumar/market-seasonality-explorer',
-    techStack: [skills.next, skills.react, skills.tw, skills.jest],
+    techStack: [
+      skills.next,
+      skills.react,
+      skills.tw,
+      skills.shadcn,
+      skills.recharts,
+      skills.jest
+    ],
     createdAt: '2025-07'
   },
   {
@@ -308,7 +321,13 @@ export const archivedProjects: Project[] = [
       'https://chromewebstore.google.com/detail/commentkit/bhaflkdicaedajhkeaipecfchdonglcn?pli=1',
     github: 'https://github.com/kumarayushkumar/commentkit',
     usedBy: '4 friends',
-    techStack: [skills.ts, skills.react, skills.tw, skills.genai],
+    techStack: [
+      skills.plasmo,
+      skills.ts,
+      skills.react,
+      skills.tw,
+      skills.genai
+    ],
     createdAt: '2025-03'
   },
   {
@@ -357,7 +376,14 @@ export const archivedProjects: Project[] = [
       'A freelance project, client from USA. A multi-page marketing website for a digital marketing agency, brought in through friends. Built dedicated pages for each service (SEO, Local SEO, PPC, Social Media Marketing, Web Designing, Google My Business), plus Home, About, Industries, Packages, Reviews, a validated Contact form, and legal pages (Privacy, Refund, Terms). Hosted on Vercel.',
     liveLink: 'https://washingtonadvert.com',
     github: 'https://github.com/kumarayushkumar/washington-advert',
-    techStack: [skills.react, skills.ts, skills.tw, skills.rhf, skills.zod],
+    techStack: [
+      skills.react,
+      skills.ts,
+      skills.tw,
+      skills.shadcn,
+      skills.rhf,
+      skills.zod
+    ],
     createdAt: '2024-08'
   },
   {
