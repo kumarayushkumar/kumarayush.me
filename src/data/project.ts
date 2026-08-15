@@ -1,4 +1,8 @@
-import ivaanArchitecture from '../assets/images/project/ivaan-architecture.png'
+import ivaanArchitecture from '../assets/images/ivaan-architecture.png'
+import emersymArchitecture from '../assets/images/emersym-architecture.png'
+import graminxHld from '../assets/images/graminx-hld.png'
+import uianalyzerArchitecture from '../assets/images/uianalyzer-architecture.png'
+import livegameArchitecture from '../assets/images/livegame-architecture.png'
 import { skills, type Skill } from './skill'
 
 type Project = {
@@ -16,7 +20,7 @@ type Project = {
   design?: string
   demo?: string
   architecture?: string
-  architectureImage?: ImageMetadata
+  architectureImage?: ImageMetadata | ImageMetadata[]
   usedBy?: string
   createdAt: string
 }
@@ -52,6 +56,7 @@ export const highlightedProjects: HighlightedProject[] = [
       'Built a multi-stage booking-broadcast engine that matches service bookings to workers through a funnel of coverage-area and 25 km Haversine-distance filters, so each job reaches only eligible, nearby workers. Designed a location-based dynamic pricing system that resolves the best price through a Village to Region to District to State to global cascade (most-specific wins), letting admins set service prices at any geographic tier. Implemented a multi-role system (farmer / worker / distributor / admin) with scoped access, plus a multi-language UI backed by on-the-fly address translation and SMS/OTP auth.',
     architecture:
       'Hardened API-key and DB configuration to environment and secret-based config, and shipped via a production Docker deployment pipeline.',
+    architectureImage: graminxHld,
     liveLink: {
       web: 'https://graminx.com/',
       app: 'https://play.google.com/store/apps/details?id=com.graminx&hl=en_IN'
@@ -59,9 +64,9 @@ export const highlightedProjects: HighlightedProject[] = [
     techStack: {
       frontend: [skills.alpine, skills.bs, skills.tw, skills.sass],
       backend: [skills.php, skills.laravel],
-      database: [skills.firebase],
+      database: [skills.mysql],
       infra: [skills.docker, skills.caddy],
-      tools: [skills.osm, skills.googleMaps]
+      tools: [skills.osm, skills.googleMaps, skills.firebase]
     },
     createdAt: '2026-03'
   },
@@ -112,6 +117,7 @@ export const highlightedProjects: HighlightedProject[] = [
       'Built a backend where Playwright loads user-submitted URLs, captures full-page screenshots, and runs Core Web Vitals audits. Implemented a scalable job system using BullMQ and Redis to queue the screenshot, LLM analysis, and audit work so requests are processed reliably under load.',
     architecture:
       'A NodeJS and Python hybrid backend. NodeJS runs the API, while Python workers handle the browser automation and image extraction. Everything is containerised with Docker.',
+    architectureImage: uianalyzerArchitecture,
     liveLink: 'https://uianalyzer.in',
     github: 'https://github.com/yaman-694/ui-analyser',
     techStack: {
@@ -142,6 +148,7 @@ export const highlightedProjects: HighlightedProject[] = [
       'The heart of this project was writing the complex real-time gaming logic and keeping live data in sync across all clients. I set up role-based authentication for 6 roles, streamed live third-party data to users over WebSockets, and handled all the user CRUD and transaction logic in the main backend.',
     architecture:
       'Split into 3 microservices. Mirror API fetches live data from a third-party API and saves it to the main db and a score db, the Websocket service is what the frontend connects to for live data, and the main backend handles everything else (users and all other CRUD). Deployed on AWS (EC2, S3, CloudFront) with Docker containerisation, shipped through GitHub Actions.',
+    architectureImage: livegameArchitecture,
     techStack: {
       frontend: [
         skills.next,
@@ -172,6 +179,9 @@ export const highlightedProjects: HighlightedProject[] = [
       'EmerSym is an emergency detection and SOS alert system, built as a research project at Amity University Gwalior with my team. The app listens to environmental sound through the phone mic and uses a deep-learning model to classify it as emergency or non-emergency. On an emergency it automatically fires SOS alerts by SMS to the user\'s close relatives, the nearest police station and hospital, sharing the victim\'s location through the Google Maps API. It reached about 92% sound-classification accuracy. We presented it at DevFest, and it won 3 hackathons. The three of us also hold a patent for this work, titled "System and Method for Early Detection and Notification of Critical Situations Using Ambient Sound Analysis".',
     approach:
       "The Android app continuously records audio and sends it to a Flask backend. The server converts the sound into a model-compatible format, runs the trained deep-learning model (loaded from a pickle file, using MFCC audio features) to predict emergency vs non-emergency, and uses the haversine formula to find the closest police station or hospital to the user. If the prediction is an emergency, an alert is sent to the user's phone with a timer, and if the user does not cancel it, the SOS message is broadcast to relatives and nearby services along with the location.",
+    architecture:
+      'An Android client streams ambient sound to a Flask backend, which converts it to MFCC features and runs a pickled deep-learning model to classify emergency vs non-emergency. On an emergency it starts a timer on the phone; if uncancelled, the Google Maps API and Haversine lookup resolve the nearest police station and hospital, and an SOS is broadcast by SMS to relatives and those services with the location.',
+    architectureImage: emersymArchitecture,
     techStack: {
       mobile: [skills.kt, skills.compose],
       backend: [skills.py, skills.flask],
