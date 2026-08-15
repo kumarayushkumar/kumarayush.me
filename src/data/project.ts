@@ -55,7 +55,7 @@ export const highlightedProjects: HighlightedProject[] = [
     approach:
       'Built a multi-stage booking-broadcast engine that matches service bookings to workers through a funnel of coverage-area and 25 km Haversine-distance filters, so each job reaches only eligible, nearby workers. Designed a location-based dynamic pricing system that resolves the best price through a Village to Region to District to State to global cascade (most-specific wins), letting admins set service prices at any geographic tier. Implemented a multi-role system (farmer / worker / distributor / admin) with scoped access, plus a multi-language UI backed by on-the-fly address translation and SMS/OTP auth.',
     architecture:
-      'Hardened API-key and DB configuration to environment and secret-based config, and shipped via a production Docker deployment pipeline.',
+      'A Laravel monolith exposing a REST API to both the Blade and Alpine web app and the Android client, with Sanctum and SMS/OTP auth scoped across the four roles. It persists to MySQL, sends push notifications through Firebase Cloud Messaging, and resolves geography with the Google Maps and OpenStreetMap APIs. API keys and DB config were moved to environment and secret-based config, containerised with Docker behind Caddy, and shipped through a production deployment pipeline.',
     architectureImage: graminxHld,
     liveLink: {
       web: 'https://graminx.com/',
@@ -101,7 +101,7 @@ export const highlightedProjects: HighlightedProject[] = [
         skills.prom,
         skills.grafana
       ],
-      tools: [skills.puppeteer]
+      tools: [skills.puppeteer, skills.chromeExt]
     },
     createdAt: '2025-09'
   },
@@ -153,7 +153,7 @@ export const highlightedProjects: HighlightedProject[] = [
     approach:
       'The heart of this project was writing the complex real-time gaming logic and keeping live data in sync across all clients. I set up role-based authentication for 6 roles, streamed live third-party data to users over WebSockets, and handled all the user CRUD and transaction logic in the main backend.',
     architecture:
-      'Split into 3 microservices. Mirror API fetches live data from a third-party API and saves it to the main db and a score db, the Websocket service is what the frontend connects to for live data, and the main backend handles everything else (users and all other CRUD). Deployed on AWS (EC2, S3, CloudFront) with Docker containerisation, shipped through GitHub Actions.',
+      'Split into separate services. A stateless Mirror API proxies a paid third-party feed for live cricket and casino data. A cron service polls the Mirror API and stores matches and series in MongoDB, flipping status to live. The WebSocket service pulls live scores and fancy odds from the Mirror API, reads match data from MongoDB, caches in Redis, and streams to the frontend. The main backend (Express + Socket.IO) handles game logic, auth, users and all CRUD, persisting to MongoDB and PostgreSQL (Prisma) with media on AWS S3. Deployed on AWS (EC2, S3, CloudFront) with Docker containerisation, shipped through GitHub Actions.',
     architectureImage: livegameArchitecture,
     techStack: {
       frontend: [
@@ -168,7 +168,7 @@ export const highlightedProjects: HighlightedProject[] = [
         skills.zod
       ],
       backend: [skills.node, skills.express, skills.socketio],
-      database: [skills.mongo, skills.redis, skills.prisma],
+      database: [skills.mongo, skills.pg, skills.redis, skills.prisma],
       infra: [skills.aws, skills.docker, skills.gha]
     },
     createdAt: '2024-05'
@@ -323,6 +323,7 @@ export const archivedProjects: Project[] = [
     usedBy: '4 friends',
     techStack: [
       skills.plasmo,
+      skills.chromeExt,
       skills.ts,
       skills.react,
       skills.tw,

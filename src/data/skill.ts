@@ -101,6 +101,7 @@ export const skills = {
   puppeteer: 'Puppeteer',
   git: 'Git',
   plasmo: 'Plasmo',
+  chromeExt: 'Chrome Extension',
   winston: 'Winston',
   stripe: 'Stripe',
   razorpay: 'Razorpay',
